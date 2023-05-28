@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.AdicionarContato;
+import org.example.controller.RemoverContato;
 import org.example.model.Contato;
 
 import javax.swing.*;
@@ -42,7 +43,6 @@ public class TelaAgenda {
         painel.setLayout(new BorderLayout());
 
         DefaultListModel<Contato> model = new DefaultListModel<>();
-        model.addElement(new Contato());
 
 
         jlContatos = new JList<>(model);
@@ -90,6 +90,8 @@ public class TelaAgenda {
         btnAdicionar.addActionListener(new AdicionarContato(this));
 
         JButton btnRemover = new JButton("Remover");
+        btnRemover.addActionListener(new RemoverContato(this));
+
         JButton btnEditar = new JButton("Editar");
 
         JPanel botoes = new JPanel();
@@ -103,26 +105,23 @@ public class TelaAgenda {
 
     }
 
-    public String getNome(){
-        return this.tfNome.getText();
-    }
-
-    public String getEmail(){
-        return this.tfEmail.getText();
-    }
-
-    public String getTelefone(){
-        return this.tfTelefone.getText();
-    }
-
-    public String getDescricao(){
-        return this.tfDescricao.getText();
-    }
-
     public void addContato(){
 
         DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
         model.addElement(new Contato(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), tfDescricao.getText()));
 
     }
+
+    public void removerContato(){
+
+        int selectedIndex = jlContatos.getSelectedIndex();
+
+        if(selectedIndex != -1){
+
+            DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+            model.remove(selectedIndex);
+        }
+    }
+
+
 }
