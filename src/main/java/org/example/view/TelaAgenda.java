@@ -1,13 +1,12 @@
 package org.example.view;
 
-import org.example.controller.AdicionarContato;
-import org.example.controller.EditarContato;
-import org.example.controller.RemoverContato;
-import org.example.controller.SelecionarContato;
+import org.example.controller.*;
 import org.example.model.Contato;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TelaAgenda {
 
@@ -26,6 +25,7 @@ public class TelaAgenda {
     public void desenha(){
 
         tela = new JFrame("Agenda");
+        tela.addWindowListener(new GerenciarContatos(this));
         tela.setSize(WIDTH, HEIGHT);
         tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setVisible(true);
@@ -108,6 +108,29 @@ public class TelaAgenda {
         tela.getContentPane().add(painel, BorderLayout.CENTER);
 
     }
+
+    public void carregaContatos(List<Contato> contatos){
+
+        DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+
+        for (Contato c: contatos
+             ) {
+            model.addElement(c);
+        }
+
+    }
+
+    public List<Contato> listaContatos(){
+        DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+        List<Contato> contatos = new ArrayList<>();
+
+        for (int i = 0; i < model.size(); i++) {
+            contatos.add(model.get(i));
+        }
+
+        return contatos;
+    }
+
 
     public void addContato(){
 
