@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.controller.AdicionarContato;
 import org.example.controller.RemoverContato;
+import org.example.controller.SelecionarContato;
 import org.example.model.Contato;
 
 import javax.swing.*;
@@ -46,6 +47,7 @@ public class TelaAgenda {
 
 
         jlContatos = new JList<>(model);
+        jlContatos.addListSelectionListener(new SelecionarContato(this));
 
         painel.add(new JScrollPane(jlContatos), BorderLayout.CENTER);
 
@@ -123,5 +125,20 @@ public class TelaAgenda {
         }
     }
 
+    public void atualizarFormulario(){
+        int selectedIndex = jlContatos.getSelectedIndex();
+
+        if(selectedIndex != -1){
+
+            DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+            Contato contato = model.get(selectedIndex);
+            tfNome.setText(contato.getNome());
+            tfEmail.setText(contato.getEmail());
+            tfTelefone.setText(contato.getTelefone());
+            tfDescricao.setText(contato.getDescricao());
+
+        }
+
+    }
 
 }
