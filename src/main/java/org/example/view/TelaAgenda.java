@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.controller.AdicionarContato;
 import org.example.model.Contato;
 
 import javax.swing.*;
@@ -13,6 +14,11 @@ public class TelaAgenda {
     private final int V_GAP = 10;
     private final int H_GAP = 5;
 
+    private JTextField tfNome;
+    private JTextField tfEmail;
+    private JTextField tfTelefone;
+    private JTextField tfDescricao;
+    private JList<Contato> jlContatos;
 
     public void desenha(){
 
@@ -39,13 +45,9 @@ public class TelaAgenda {
         model.addElement(new Contato());
 
 
-        JList<Contato> contatos = new JList<>(model);
-//        contatos.setSize(WIDTH/3, HEIGHT);
+        jlContatos = new JList<>(model);
 
-
-        painel.add(new JScrollPane(contatos));
-
-        painel.add(contatos, BorderLayout.CENTER);
+        painel.add(new JScrollPane(jlContatos), BorderLayout.CENTER);
 
         tela.getContentPane().add(painel, BorderLayout.WEST);
     }
@@ -67,10 +69,15 @@ public class TelaAgenda {
 
         JPanel painelField = new JPanel();
         painelField.setLayout(new GridLayout(0,1, H_GAP,V_GAP));
-        painelField.add(new JTextField(20));
-        painelField.add(new JTextField(20));
-        painelField.add(new JTextField(20));
-        painelField.add(new JTextField(20));
+        tfNome = new JTextField(20);
+        tfEmail = new JTextField(20);
+        tfTelefone = new JTextField(20);
+        tfDescricao = new JTextField(20);
+
+        painelField.add(tfNome);
+        painelField.add(tfEmail);
+        painelField.add(tfTelefone);
+        painelField.add(tfDescricao);
 
 
         formulario.add(painelLabel);
@@ -80,6 +87,8 @@ public class TelaAgenda {
         painel.add(formulario, BorderLayout.CENTER);
 
         JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.addActionListener(new AdicionarContato(this));
+
         JButton btnRemover = new JButton("Remover");
         JButton btnEditar = new JButton("Editar");
 
@@ -94,5 +103,26 @@ public class TelaAgenda {
 
     }
 
+    public String getNome(){
+        return this.tfNome.getText();
+    }
 
+    public String getEmail(){
+        return this.tfEmail.getText();
+    }
+
+    public String getTelefone(){
+        return this.tfTelefone.getText();
+    }
+
+    public String getDescricao(){
+        return this.tfDescricao.getText();
+    }
+
+    public void addContato(){
+
+        DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+        model.addElement(new Contato(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), tfDescricao.getText()));
+
+    }
 }
