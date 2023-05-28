@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class AdicionarContato implements ActionListener {
 
-    private TelaAgenda tela;
+    private final TelaAgenda tela;
 
     public AdicionarContato(TelaAgenda tela) {
         this.tela = tela;

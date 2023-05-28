@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.AdicionarContato;
+import org.example.controller.EditarContato;
 import org.example.controller.RemoverContato;
 import org.example.controller.SelecionarContato;
 import org.example.model.Contato;
@@ -95,6 +96,7 @@ public class TelaAgenda {
         btnRemover.addActionListener(new RemoverContato(this));
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.addActionListener(new EditarContato(this));
 
         JPanel botoes = new JPanel();
         botoes.add(btnAdicionar);
@@ -138,6 +140,30 @@ public class TelaAgenda {
             tfDescricao.setText(contato.getDescricao());
 
         }
+
+    }
+
+    public void editarContato(){
+
+        int selectedIndex = jlContatos.getSelectedIndex();
+
+        if(selectedIndex != -1){
+
+            DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+
+            Contato contato = model.get(selectedIndex);
+
+            model.remove(selectedIndex);
+
+            contato.setNome(tfNome.getText());
+            contato.setEmail(tfEmail.getText());
+            contato.setTelefone(tfTelefone.getText());
+            contato.setDescricao(tfDescricao.getText());
+            model.add(selectedIndex, contato);
+        }
+
+
+        tela.pack();
 
     }
 

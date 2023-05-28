@@ -7,7 +7,7 @@ import javax.swing.event.ListSelectionListener;
 
 public class SelecionarContato implements ListSelectionListener {
 
-    private TelaAgenda tela;
+    private final TelaAgenda tela;
 
     public SelecionarContato(TelaAgenda tela) {
         this.tela = tela;
