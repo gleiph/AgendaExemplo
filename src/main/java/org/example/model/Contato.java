@@ -1,16 +1,18 @@
 package org.example.model;
 
+import org.example.exception.EmailException;
+
 public class Contato {
 
     private String nome;
     private String telefone;
-    private String email;
+    private Email email;
     private String descricao;
 
     public Contato() {
     }
 
-    public Contato(String nome, String telefone, String email, String descricao) {
+    public Contato(String nome, String telefone, Email email, String descricao) {
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
@@ -34,11 +36,11 @@ public class Contato {
     }
 
     public String getEmail() {
-        return email;
+        return email.getEmail();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) throws EmailException {
+        this.email = new Email(email);
     }
 
     public String getDescricao() {

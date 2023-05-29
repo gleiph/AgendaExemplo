@@ -31,11 +31,17 @@ public class ContatoPersistence implements Persistence<Contato> {
         Gson gson = new Gson();
 
         String json = Arquivo.le(PATH);
-        Type tipoLista = new TypeToken<List<Contato>>(){}.getType();
-        List<Contato> contatos = gson.fromJson(json, tipoLista);
 
-        if(contatos == null)
-            contatos = new ArrayList<>();
+        List<Contato> contatos = new ArrayList<>();
+        if(!json.trim().equals("")) {
+
+            Type tipoLista = new TypeToken<List<Contato>>() {
+            }.getType();
+        contatos = gson.fromJson(json, tipoLista);
+
+            if (contatos == null)
+                contatos = new ArrayList<>();
+        }
 
         return contatos;
     }

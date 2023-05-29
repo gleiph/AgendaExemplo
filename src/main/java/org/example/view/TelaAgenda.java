@@ -1,7 +1,9 @@
 package org.example.view;
 
 import org.example.controller.*;
+import org.example.exception.EmailException;
 import org.example.model.Contato;
+import org.example.model.Email;
 
 import javax.swing.*;
 import java.awt.*;
@@ -135,7 +137,11 @@ public class TelaAgenda {
     public void addContato(){
 
         DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
-        model.addElement(new Contato(tfNome.getText(), tfTelefone.getText(), tfEmail.getText(), tfDescricao.getText()));
+        try {
+            model.addElement(new Contato(tfNome.getText(), tfTelefone.getText(), new Email(tfEmail.getText()), tfDescricao.getText()));
+        } catch (EmailException e) {
+            JOptionPane.showMessageDialog(tela, "O email " +tfEmail.getText() +" é invalido!");
+        }
 
     }
 
@@ -178,11 +184,15 @@ public class TelaAgenda {
 
             model.remove(selectedIndex);
 
-            contato.setNome(tfNome.getText());
-            contato.setEmail(tfEmail.getText());
-            contato.setTelefone(tfTelefone.getText());
-            contato.setDescricao(tfDescricao.getText());
-            model.add(selectedIndex, contato);
+            try {
+                contato.setEmail(tfEmail.getText());
+                contato.setNome(tfNome.getText());
+                contato.setTelefone(tfTelefone.getText());
+                contato.setDescricao(tfDescricao.getText());
+                model.add(selectedIndex, contato);
+            }catch(EmailException ex){
+                JOptionPane.showMessageDialog(tela, "O email " +tfEmail.getText() +" é invalido!");
+            }
         }
 
 
