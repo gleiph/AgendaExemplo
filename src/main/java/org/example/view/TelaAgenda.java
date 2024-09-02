@@ -138,9 +138,12 @@ public class TelaAgenda {
 
         DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
         try {
-            model.addElement(new Contato(tfNome.getText(), tfTelefone.getText(), new Email(tfEmail.getText()), tfDescricao.getText()));
+            model.addElement(new Contato(tfNome.getText(), 
+                    tfTelefone.getText(), new Email(tfEmail.getText())
+                    , tfDescricao.getText()));
         } catch (EmailException e) {
-            JOptionPane.showMessageDialog(tela, "O email " +tfEmail.getText() +" é invalido!");
+            JOptionPane.showMessageDialog(tela, "O email " 
+                    +tfEmail.getText() +" é invalido!");
         }
 
     }
@@ -151,7 +154,8 @@ public class TelaAgenda {
 
         if(selectedIndex != -1){
 
-            DefaultListModel<Contato> model = (DefaultListModel<Contato>)jlContatos.getModel();
+            DefaultListModel<Contato> model = 
+                    (DefaultListModel<Contato>)jlContatos.getModel();
             model.remove(selectedIndex);
         }
     }
