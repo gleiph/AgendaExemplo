@@ -11,15 +11,16 @@ public class Email {
     private String login;
     private String dominio;
 
+    private static final String emailRegex =
+            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private static final Pattern pattern = Pattern.compile(emailRegex);
 
     public Email(String email) throws EmailException {
         setEmail(email);
     }
 
     private boolean isValidEmail(String email) {
-        String emailRegex = 
-          "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        Pattern pattern = Pattern.compile(emailRegex);
+
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
