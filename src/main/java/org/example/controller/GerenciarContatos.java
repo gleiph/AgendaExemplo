@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.model.Contato;
 import org.example.persistence.ContatoPersistence;
-import org.example.persistence.Persistence;
+import org.example.persistence.ContatoPersistenceImpl;
 import org.example.view.TelaAgenda;
 
 import java.awt.event.WindowEvent;
@@ -19,7 +19,7 @@ public class GerenciarContatos implements WindowListener {
 
     @Override
     public void windowOpened(WindowEvent e) {
-        Persistence<Contato> contatoPersistence = new ContatoPersistence();
+        ContatoPersistence contatoPersistence = new ContatoPersistenceImpl();
         List<Contato> all = contatoPersistence.findAll();
         tela.carregaContatos(all);
 
@@ -27,7 +27,7 @@ public class GerenciarContatos implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        Persistence<Contato> contatoPersistence = new ContatoPersistence();
+        ContatoPersistence contatoPersistence = new ContatoPersistenceImpl();
         contatoPersistence.save(tela.listaContatos());
     }
 
